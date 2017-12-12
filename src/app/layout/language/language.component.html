@@ -1,0 +1,17 @@
+﻿<button mat-button matTooltip="{{'LAYOUT.LANGUAGE.SELECT' | translate}}"
+        [matMenuTriggerFor]="menu">
+    <span *ngIf="translate.currentLang === 'en'">{{'LAYOUT.LANGUAGE.en' | translate}}</span>
+    <span *ngIf="translate.currentLang === 'fr'">{{'LAYOUT.LANGUAGE.fr' | translate}}</span>
+    <span *ngIf="translate.currentLang === 'tr'">{{'LAYOUT.LANGUAGE.tr' | translate}}</span>
+</button>
+<mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="changeLanguage('en')">
+        {{'LAYOUT.LANGUAGE.en' | translate}}
+    </button>
+    <button mat-menu-item (click)="changeLanguage('fr')">
+        {{'LAYOUT.LANGUAGE.fr' | translate}}
+    </button>
+    <button mat-menu-item (click)="changeLanguage('tr')">
+        {{'LAYOUT.LANGUAGE.tr' | translate}}
+    </button>
+</mat-menu>

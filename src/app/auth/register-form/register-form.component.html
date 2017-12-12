@@ -1,0 +1,32 @@
+<div>
+    <mat-input-container>
+        <input matInput type="text" maxlength="50" name="firstName"
+               placeholder="{{ 'AUTH.REGISTERFORM.FIRST' | translate }}"
+               [(ngModel)]="auth.currentUser.displayName" required/>
+    </mat-input-container>
+    <br/>
+    <mat-input-container>
+        <input matInput type="text" maxlength="50" name="lastName"
+               placeholder="{{ 'AUTH.REGISTERFORM.LAST' | translate }}"
+               [(ngModel)]="auth.currentUser.displayName" required/>
+    </mat-input-container>
+    <br/>
+    <mat-input-container *ngIf="!hideEmail">
+        <input matInput type="email" maxlength="50" name="email"
+               placeholder="{{ 'AUTH.REGISTERFORM.EMAIL' | translate }}"
+               [(ngModel)]="auth.currentUser.email" required/>
+    </mat-input-container>
+    <br *ngIf="!hideEmail"/>
+    <mat-input-container *ngIf="!hidePassword">
+        <input matInput type="password" maxlength="50" name="password"
+               placeholder="{{ 'AUTH.REGISTERFORM.PASSWORD' | translate }}"
+               [(ngModel)]="password" required/>
+    </mat-input-container>
+    <br *ngIf="!hidePassword"/>
+    <mat-input-container>
+        <input matInput type="tel" maxlength="25" length="40" name="phoneNumber"
+               placeholder="{{ 'AUTH.REGISTERFORM.PHONE' | translate }}"
+               [(ngModel)]="auth.currentUser.phoneNumber" required/>
+    </mat-input-container>
+</div>
+

@@ -1,0 +1,18 @@
+﻿
+/deep/ router-outlet ~ *:not(bc-footer):not(router-outlet) {
+    padding: 60px;
+    display: flex;
+    min-height: 100%;
+    margin-top: -42px;
+    margin-bottom: -40px;
+}
+
+/deep/ .home router-outlet ~ *:not(bc-footer):not(router-outlet) {
+    margin: 0;
+}
+
+@media all and (max-width: 1000px) {
+    /deep/ router-outlet ~ *:not(bc-footer):not(router-outlet) {
+        padding: 20px;
+    }
+}

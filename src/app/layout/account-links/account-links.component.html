@@ -1,0 +1,13 @@
+﻿<button mat-button routerLink="/account"
+        *ngIf="loggedIn">My Account
+</button>
+<button mat-button routerLink="/auth/logout"
+        *ngIf="loggedIn">
+    {{ 'LAYOUT.ACCOUNTLINKS.LOGOUT' | translate }}
+</button>
+<button mat-button routerLink="/auth/login" *ngIf="!loggedIn">
+    {{ 'LAYOUT.ACCOUNTLINKS.LOGIN' | translate }}
+</button>
+<button mat-button routerLink="/auth/register" *ngIf="!loggedIn">
+    {{ 'LAYOUT.ACCOUNTLINKS.REGISTER' | translate }}
+</button>
