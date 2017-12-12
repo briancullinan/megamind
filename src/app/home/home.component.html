@@ -13,18 +13,18 @@
                     <mat-option>beautiful code compare</mat-option>
                     <mat-option>robot in the middle search</mat-option>
                 </mat-optgroup>
-                <mat-option *ngFor="let c of (permissionsAccessible | async)" [value]="c">
+                <mat-option *ngFor="let c of (rpc.permissionsAccessible | async)" [value]="c">
                     {{ c }}
                 </mat-option>
-                <mat-optgroup *ngIf="(permissionsFunctions | async)?.length > 0" label="Deploy your own! (RPC)"
+                <mat-optgroup *ngIf="(rpc.permissionsFunctions | async)?.length > 0" label="Deploy your own! (RPC)"
                               [disabled]="true">
                     <mat-option *ngFor="let c of (permissionsFunctions | async)" [value]="c">
                         {{ c }}
                     </mat-option>
                 </mat-optgroup>
-                <mat-optgroup *ngIf="(permissionsLocked | async)?.length > 0" label="Deploy your own!"
+                <mat-optgroup *ngIf="(rpc.permissionsLocked | async)?.length > 0" label="Deploy your own!"
                               [disabled]="true">
-                    <mat-option *ngFor="let c of (permissionsLocked | async)" [value]="c">
+                    <mat-option *ngFor="let c of (rpc.permissionsLocked | async)" [value]="c">
                         {{ c }}
                     </mat-option>
                 </mat-optgroup>
