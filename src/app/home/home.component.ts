@@ -1,13 +1,13 @@
 import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { RpcService } from './rpc-service';
-import { Subscription } from 'rxjs/Subscription';
 import { Observable } from 'rxjs/Observable';
+import { Subscription } from 'rxjs/Subscription';
+import { RpcService } from './rpc-service';
 
 @Component({
     selector: 'bc-home',
     templateUrl: './home.component.html',
-    styleUrls: ['./home.component.scss']
+    styleUrls: [ './home.component.scss' ]
 })
 export class HomeComponent implements OnInit, OnDestroy {
     search = 'tell joke';
@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit, OnDestroy {
             // TODO: call import with the search terms if it is not a function
         }
 
-        this.history.unshift(['megamind', this.functionName, JSON.stringify(this.parameters, void 0, 4)]);
+        this.history.unshift([ 'megamind', this.functionName, JSON.stringify(this.parameters, void 0, 4) ]);
         if (this.history.length > 5) {
             this.history.splice(5);
         }
@@ -59,12 +59,12 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.rpc.call(this.functionName, this.parameters)
             .subscribe((r: any) => {
                 this.loading = false;
-                this.history.unshift([r, JSON.stringify(r, void 0, 4)]);
+                this.history.unshift([ r, JSON.stringify(r, void 0, 4) ]);
                 this.ref.detectChanges();
             }, (e: any) => {
                 console.log(e);
                 this.loading = false;
-                this.history.unshift([e, JSON.stringify(e, void 0, 4)]);
+                this.history.unshift([ e, JSON.stringify(e, void 0, 4) ]);
                 this.ref.detectChanges();
             });
         this.ref.detectChanges();
@@ -78,20 +78,24 @@ export class HomeComponent implements OnInit, OnDestroy {
                 if (this.history.length > 5) {
                     this.history.splice(5);
                 }
-                this.functionName = s[0];
-                console.log(s.length);
+                this.ref.detectChanges();
                 if (this.search.length === 0) {
                     return Observable.of([]);
                 }
-                this.ref.detectChanges();
-                return this.rpc.parameters(s[0]);
+                console.log(this.functionName);
+                console.log(s[ 0 ]);
+                if (s[ 0 ] !== this.functionName) {
+                    this.functionName = s[ 0 ];
+                    return this.rpc.parameters(s[ 0 ]);
+                }
+                return Observable.of([ this.functionName ].concat(this.functionParameters));
             })
             .subscribe((r: Array<string>) => {
-                const keep = this.functionParameters.map(p => this.parameters[p]);
+                const keep = this.functionParameters.map(p => this.parameters[ p ]);
                 this.loading = false;
                 this.functionParameters = r.slice(1);
                 this.parameters = this.functionParameters.reduce((acc, p, i) => {
-                    acc[p] = keep[i];
+                    acc[ p ] = keep[ i ];
                     return acc;
                 }, {} as { [index: string]: any });
                 this.ref.detectChanges();
