@@ -31,58 +31,7 @@ h2 > *:last-child {
     min-height: 100%;
 }
 
-form {
-    display: flex;
-}
-
 article {
     display: block;
     width: 100%;
 }
-
-article .mat-form-field:first-of-type {
-    flex-basis: 200px;
-    flex-shrink: 0;
-    flex-grow: 1;
-}
-
-article .mat-form-field:first-of-type ~ .mat-form-field {
-    width: 100%;
-    flex-basis: 100%;
-    flex-grow: 1;
-}
-
-article .code {
-    overflow: auto;
-}
-
-article button {
-    flex-shrink: 0;
-}
-
-article /deep/ mat-panel-title {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-    margin-right: 0;
-    display: inline;
-}
-
-article /deep/ .mat-expansion-panel-body {
-    padding: 0;
-}
-
-@media all and (max-width: 1000px) {
-
-    article .mat-form-field:first-of-type {
-        flex-basis: 100%;
-        flex-grow: 1;
-    }
-
-    form {
-        flex-wrap: wrap;
-    }
-
-}
-

@@ -1,0 +1,33 @@
+
+form {
+    display: flex;
+}
+
+mat-form-field:first-of-type {
+    flex-basis: 200px;
+    flex-shrink: 0;
+    flex-grow: 1;
+}
+
+mat-form-field:first-of-type ~ .mat-form-field {
+    width: 100%;
+    flex-basis: 100%;
+    flex-grow: 1;
+}
+
+button {
+    flex-shrink: 0;
+}
+
+@media all and (max-width: 1000px) {
+
+    mat-form-field:first-of-type {
+        flex-basis: 100%;
+        flex-grow: 1;
+    }
+
+    form {
+        flex-wrap: wrap;
+    }
+
+}

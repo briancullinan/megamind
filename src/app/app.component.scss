@@ -1,10 +1,8 @@
 ﻿
-/deep/ router-outlet ~ *:not(bc-footer):not(router-outlet) {
+/deep/ mat-sidenav-content > router-outlet ~ *:not(bc-footer):not(router-outlet) {
     padding: 60px;
     display: flex;
     min-height: 100%;
-    margin-top: -42px;
-    margin-bottom: -40px;
 }
 
 /deep/ .home router-outlet ~ *:not(bc-footer):not(router-outlet) {

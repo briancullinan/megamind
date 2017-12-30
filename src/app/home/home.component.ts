@@ -1,8 +1,8 @@
-import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs/Observable';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import 'rxjs/add/operator/first';
 import { Subscription } from 'rxjs/Subscription';
-import { RpcService } from './rpc-service';
+import { SearchService } from './search/search-service';
 
 @Component({
     selector: 'bc-home',
@@ -10,102 +10,57 @@ import { RpcService } from './rpc-service';
     styleUrls: [ './home.component.scss' ]
 })
 export class HomeComponent implements OnInit, OnDestroy {
-    search = 'tell joke';
-    history: Array<Array<any>> = [];
-    loading = false;
-    functionName = '';
-    functionParameters: Array<string> = [];
-    parameters: { [index: string]: any } = {};
-    myControl = new FormControl();
-    error: boolean;
+    private functionName = '';
+    private routeSub: Subscription;
+    private initial = true;
 
-    private searchSub: Subscription;
-    private parameterSub: Subscription;
-
-    constructor(public rpc: RpcService,
-                public ref: ChangeDetectorRef) {
+    constructor(public route: ActivatedRoute,
+                public router: Router,
+                public rpc: SearchService) {
     }
 
-    ngOnInit(): void {
-        this.setupParameters();
-        this.searchSub = this.myControl.valueChanges
-            .debounceTime(100)
-            .subscribe(s => this.rpc.search(s));
-    }
-
-    ngOnDestroy(): void {
-        if (typeof this.searchSub !== 'undefined') {
-            this.searchSub.unsubscribe();
-        }
-        if (typeof this.parameterSub !== 'undefined') {
-            this.parameterSub.unsubscribe();
+    updateParameters(s: Array<any>) {
+        // only update if its changed
+        if (typeof s !== 'undefined'
+            && typeof s[ 0 ] !== 'undefined'
+            && s[ 0 ] !== this.functionName) {
+            this.functionName = s[ 0 ];
+            this.router.navigate(
+                [ '/' + this.functionName ],
+                {replaceUrl: true});
         }
     }
 
-    sendCommand(): boolean {
-        this.loading = true;
-        if (typeof this.functionName === 'undefined'
-            || this.functionName === '') {
-            return false;
-        } else {
-            // TODO: call import with the search terms if it is not a function
-        }
-
-        this.history.unshift([ 'megamind', this.functionName, JSON.stringify(this.parameters, void 0, 4) ]);
-        if (this.history.length > 5) {
-            this.history.splice(5);
-        }
-
-        this.rpc.call(this.functionName, this.parameters)
-            .subscribe((r: any) => {
-                this.loading = false;
-                this.history.unshift([ r, JSON.stringify(r, void 0, 4) ]);
-                this.ref.detectChanges();
-            }, (e: any) => {
-                console.log(e);
-                this.loading = false;
-                this.history.unshift([ e, JSON.stringify(e, void 0, 4) ]);
-                this.ref.detectChanges();
+    ngOnInit() {
+        let parameters: { [index: string]: any } = {};
+        this.route.params.first().subscribe(params => {
+            const search = params[ 'function' ];
+            parameters = params;
+            if (search) {
+                this.rpc.search(search);
+            } else {
+                this.updateParameters([ 'tell joke' ]);
+            }
+        });
+        this.routeSub = this.rpc.parameters
+            .subscribe(s => {
+                this.updateParameters(s);
+                // call the function when the page first loads
+                if (typeof s !== 'undefined' && typeof s[ 0 ] !== 'undefined'
+                    && this.initial) {
+                    this.initial = false;
+                    this.rpc.call(this.functionName, parameters)
+                        .subscribe(() => {
+                        }, (e: any) => {
+                            console.log(e);
+                        });
+                }
             });
-        this.ref.detectChanges();
-        return false;
     }
 
-    private setupParameters(): void {
-        this.parameterSub = this.rpc.permissionsFiltered
-            .flatMap(s => {
-                this.error = false;
-                if (this.history.length > 5) {
-                    this.history.splice(5);
-                }
-                this.ref.detectChanges();
-                if (this.search.length === 0) {
-                    return Observable.of([]);
-                }
-                console.log(this.functionName);
-                console.log(s[ 0 ]);
-                if (s[ 0 ] !== this.functionName) {
-                    this.functionName = s[ 0 ];
-                    return this.rpc.parameters(s[ 0 ]);
-                }
-                return Observable.of([ this.functionName ].concat(this.functionParameters));
-            })
-            .subscribe((r: Array<string>) => {
-                const keep = this.functionParameters.map(p => this.parameters[ p ]);
-                this.loading = false;
-                this.functionParameters = r.slice(1);
-                this.parameters = this.functionParameters.reduce((acc, p, i) => {
-                    acc[ p ] = keep[ i ];
-                    return acc;
-                }, {} as { [index: string]: any });
-                this.ref.detectChanges();
-            }, e => {
-                console.log(e);
-                this.error = true;
-                this.loading = true;
-                this.functionParameters = [];
-                this.parameters = {};
-                this.ref.detectChanges();
-            });
+    ngOnDestroy() {
+        if (typeof this.routeSub !== 'undefined') {
+            this.routeSub.unsubscribe();
+        }
     }
 }

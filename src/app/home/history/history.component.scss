@@ -1,0 +1,23 @@
+
+.code {
+    overflow: auto;
+}
+
+mat-expansion-panel /deep/ mat-panel-title {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    margin-right: 0;
+    display: inline;
+}
+
+mat-expansion-panel /deep/ .mat-expansion-panel-body {
+    padding: 0;
+}
+
+mat-expansion-panel {
+    background: transparent;
+    box-shadow: none !important;
+}
+

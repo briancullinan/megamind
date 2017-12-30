@@ -5,11 +5,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
+import 'hammerjs';
+import { GalleryConfig, GalleryModule } from 'ng-gallery';
 
 import { AppComponent } from './app.component';
 // routing
 import { routing } from './app.routing';
 import { SharedModule, sharedModules } from './core/core.module';
+import { HomeModule } from './home/home.module';
 // sub-modules for lazy loading
 import { LayoutModule } from './layout/layout.module';
 
@@ -34,7 +37,8 @@ export const FirebaseConfig = {
         AngularFireAuthModule,
 
         routing, // the rest of the modules are lazy-loaded
-        LayoutModule
+        LayoutModule,
+        HomeModule
     ],
     providers: [
         {provide: APP_BASE_HREF, useValue: '/'}

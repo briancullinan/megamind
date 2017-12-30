@@ -16,6 +16,7 @@ import {
     MatProgressSpinnerModule,
     MatSelectModule,
     MatSidenavModule,
+    MatSliderModule,
     MatToolbarModule,
     MatTooltipModule
 } from '@angular/material';
@@ -43,7 +44,8 @@ export const materialModules: Array<any> = [
     MatDialogModule,
     MatExpansionModule,
     MatProgressSpinnerModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatSliderModule
 ];
 
 export const sharedModules: Array<any> = [

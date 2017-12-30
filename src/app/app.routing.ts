@@ -1,11 +1,8 @@
 ﻿import { ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-    {
-        path: '',
-        loadChildren: './home/home.module#HomeModule'
-    },
     {
         path: 'auth',
         loadChildren: './auth/auth.module#AuthModule'
@@ -13,6 +10,10 @@ const routes: Routes = [
     {
         path: 'terms',
         loadChildren: './landing/terms/terms.module#TermsModule'
+    },
+    {
+        path: '**',
+        component: HomeComponent
     }
 ];
 

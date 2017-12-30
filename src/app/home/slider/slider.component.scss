@@ -1,0 +1,44 @@
+mat-slider {
+    width: 100%;
+}
+
+div.svg-wrapper svg {
+    max-width: none;
+}
+
+div.svg-container {
+    min-height: 600px;
+    position: relative;
+}
+
+div.svg-wrapper:first-of-type {
+    position: static;
+}
+
+div.svg-wrapper {
+    opacity: .05;
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+div.svg-wrapper:nth-last-of-type(3) {
+    opacity: .15;
+}
+
+div.svg-wrapper:nth-last-of-type(2) {
+    opacity: .3;
+}
+
+div.svg-wrapper /deep/ svg {
+    width: 100% !important;
+}
+
+div.svg-wrapper:last-of-type {
+    opacity: 1;
+}
+
+svg text {
+    position: absolute;
+    right: 0;
+}

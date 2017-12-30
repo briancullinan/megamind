@@ -1,0 +1,37 @@
+<form (ngSubmit)="sendCommand()" autocomplete="off">
+    <mat-form-field>
+        <input type="text" placeholder="What can I do for you?" name="search"
+               matInput [matAutocomplete]="auto" [(ngModel)]="search"
+               [formControl]="searchControl">
+        <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngIf="search === ''" value="tell joke">tell joke</mat-option>
+            <mat-option *ngIf="search === ''" value="schedule search all">meta search</mat-option>
+            <mat-optgroup *ngIf="search === ''" label="Coming soon!" [disabled]="true">
+                <mat-option>re-style a document</mat-option>
+                <mat-option>auto-linter for Github</mat-option>
+                <mat-option>beautiful code compare</mat-option>
+                <mat-option>robot in the middle search</mat-option>
+            </mat-optgroup>
+            <mat-option *ngFor="let c of (rpc.permissionsAccessible | async)" [value]="c">
+                {{ c }}
+            </mat-option>
+            <mat-optgroup *ngIf="(rpc.permissionsFunctions | async)?.length > 0" label="Deploy your own! (RPC)"
+                          [disabled]="true">
+                <mat-option *ngFor="let c of (permissionsFunctions | async)" [value]="c">
+                    {{ c }}
+                </mat-option>
+            </mat-optgroup>
+            <mat-optgroup *ngIf="(rpc.permissionsLocked | async)?.length > 0" label="Deploy your own!"
+                          [disabled]="true">
+                <mat-option *ngFor="let c of (rpc.permissionsLocked | async)" [value]="c">
+                    {{ c }}
+                </mat-option>
+            </mat-optgroup>
+        </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field *ngFor="let p of functionParameters">
+        <input matInput [placeholder]="p" [name]="p" [(ngModel)]="parameters[p]" value="">
+    </mat-form-field>
+    <button mat-raised-button color="primary" type="submit" [disabled]="loading || functionName === ''">Send
+    </button>
+</form>
