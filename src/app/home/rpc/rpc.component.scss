@@ -1,0 +1,40 @@
+@import '../../../assets/colors';
+
+h2 {
+    display: flex;
+    border-bottom: 2px solid $dark-gray;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+h2 > * {
+    flex-basis: 50%;
+}
+
+h2 > *:last-child {
+    text-align: right;
+}
+
+:host {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/deep/ .home bc-footer {
+    position: relative;
+    z-index: 100;
+}
+
+/deep/ bc-toolbar ~ bc-home {
+    min-height: 100%;
+}
+
+bc-history {
+    width: 100%;
+}
+
+bc-search {
+    width: 100%;
+}

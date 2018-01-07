@@ -18,9 +18,11 @@ export class SliderComponent implements OnInit {
     }
 
     ngOnInit() {
+        // TODO: move to slilder-service.ts?
         this.historySub = this.history.updated.subscribe(i => {
-            if (i[ 0 ][ 0 ].map) {
-                this.images = i[ 0 ][ 0 ].map(svg => this.sanitizer.bypassSecurityTrustHtml(svg));
+            const svg = typeof i[ 0 ][ 0 ] === 'string' ? [ i[ 0 ][ 0 ] ] : i[ 0 ][ 0 ];
+            if (svg.map) {
+                this.images = svg.map((svg: string) => this.sanitizer.bypassSecurityTrustHtml(svg));
                 this.ref.detectChanges();
             }
         });

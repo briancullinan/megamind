@@ -1,7 +1,6 @@
 ﻿import { Component } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase/app';
 
 @Component({
     selector: 'bc-reset',
@@ -69,9 +68,10 @@ export class ResetPasswordComponent {
             // the new password.
 
             // Save the new password.
-        }).catch(error => {
+        }).catch((error: any) => {
             // Invalid or expired action code. Ask user to try to reset the password
             // again.
+            console.log(error);
         });
     }
 

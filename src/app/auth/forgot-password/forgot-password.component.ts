@@ -1,6 +1,6 @@
 ﻿import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import * as firebase from 'firebase/app';
+import * as firebase from 'firebase';
 
 @Component({
     selector: 'bc-forgot',
@@ -10,18 +10,16 @@ import * as firebase from 'firebase/app';
 export class ForgotPasswordComponent {
     email: string;
     error = '';
-    private firebase: firebase.app.App;
 
     constructor(public router: Router) {
-        this.firebase = firebase.app();
     }
 
     onNext(): void {
-        const authx = this.firebase.auth();
+        const authx = firebase.auth();
         authx.sendPasswordResetEmail(this.email)
             .then(() => {
                 alert(' Email sent');
-            }, error => {
+            }, (error: any) => {
                 alert(error);
             });
     }

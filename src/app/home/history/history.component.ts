@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs/Subscription';
 import { HistoryService } from './history-service';
 
 @Component({
-    selector: 'bc-command-history',
+    selector: 'bc-history',
     templateUrl: './history.component.html',
     styleUrls: [ './history.component.scss' ]
 })

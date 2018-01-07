@@ -21,8 +21,7 @@
                        length="40"
                        [(ngModel)]="password">
             </mat-input-container>
-            <bc-register-form *ngIf="isRegister"
-                              [auth]="fireAuth.auth"></bc-register-form>
+            <bc-register-form *ngIf="isRegister"></bc-register-form>
         </mat-card-content>
         <mat-card-actions>
             <span class="alert alert-danger">

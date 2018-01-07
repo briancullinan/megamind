@@ -1,6 +1,5 @@
 import { ChangeDetectorRef, Component, Input, OnChanges } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
-import * as firebase from 'firebase';
 
 /**
  * This component is responsible for displaying and controlling
@@ -12,12 +11,16 @@ import * as firebase from 'firebase';
     styleUrls: [ './register-form.component.scss' ]
 })
 export class RegisterFormComponent implements OnChanges {
-    @Input() public auth: firebase.auth.Auth;
     @Input() public hideEmail = false;
     @Input() public hidePassword = false;
 
+    public password: string;
+    public displayName: string;
+    public email: string;
+    public phoneNumber: string;
+
     constructor(public ref: ChangeDetectorRef,
-                public fireAuth: AngularFireAuth) {
+                public auth: AngularFireAuth) {
     }
 
     ngOnChanges() {

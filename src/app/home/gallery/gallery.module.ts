@@ -19,6 +19,7 @@ export const galleryConfig: GalleryConfig = {
         RouterModule.forChild([ {path: '', component: GalleryComponent} ] as Routes)
     ],
     declarations: [ GalleryComponent ],
+    exports: [ GalleryComponent ],
     providers: []
 })
 export class GalleryModule {

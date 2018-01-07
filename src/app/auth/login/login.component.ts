@@ -48,7 +48,7 @@ export class LoginComponent implements AfterViewInit {
     onLogin(): void {
         try {
             this.fireAuth.auth.signInWithEmailAndPassword(this.email, this.password)
-                .catch(e => this.communicateError('Error logging in: ' + e.toString()));
+                .catch((e: any) => this.communicateError('Error logging in: ' + e.toString()));
         } catch (e) {
             this.communicateError('Error logging in: ' + e.toString());
         }

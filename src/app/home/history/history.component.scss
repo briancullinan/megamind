@@ -3,6 +3,17 @@
     overflow: auto;
 }
 
+.command {
+    text-align: right;
+}
+
+.command span {
+    display: inline-block;
+    padding: 10px;
+    background: rgba(255, 255, 255, .25);
+    border-radius: 2px;
+}
+
 mat-expansion-panel /deep/ mat-panel-title {
     white-space: nowrap;
     overflow: hidden;

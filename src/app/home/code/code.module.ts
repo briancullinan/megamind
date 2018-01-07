@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { COMMON_MODULES } from '../../core/core.module';
-import { SliderComponent } from './slider.component';
+import { CodeComponent } from './code.component';
 
 @NgModule({
     imports: [
         ...COMMON_MODULES,
-        RouterModule.forChild([ {path: '', component: SliderComponent} ] as Routes)
+        RouterModule.forChild([ {path: '', component: CodeComponent} ] as Routes)
     ],
-    declarations: [ SliderComponent ],
-    exports: [ SliderComponent ],
+    declarations: [ CodeComponent ],
+    exports: [ CodeComponent ],
     providers: []
 })
-export class SliderModule {
+export class CodeModule {
 }

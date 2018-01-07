@@ -1,37 +1,17 @@
-@import '../../assets/colors';
 
-h2 {
-    display: flex;
-    border-bottom: 2px solid $dark-gray;
-    margin-top: 0;
-    margin-bottom: 0;
-}
-
-h2 > * {
-    flex-basis: 50%;
-}
-
-h2 > *:last-child {
-    text-align: right;
+:host {
+    padding: 60px;
+    display: block;
+    min-height: 100%;
+    width: 100%;
 }
 
 :host {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
+    margin: 0;
 }
 
-/deep/ .home bc-footer {
-    position: relative;
-    z-index: 100;
-}
-
-/deep/ bc-toolbar ~ bc-home {
-    min-height: 100%;
-}
-
-article {
-    display: block;
-    width: 100%;
+@media all and (max-width: 1000px) {
+    :host {
+        padding: 20px;
+    }
 }

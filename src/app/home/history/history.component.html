@@ -1,8 +1,10 @@
 <div>
-    <h3>Command History</h3>
+    <h3>Command History
+        <mat-slider [thumbLabel]="true" [(value)]="service.count" [step]="10" [min]="10" [max]="1000"></mat-slider>
+    </h3>
     <div *ngFor="let h of history" class="message">
-        <div *ngIf="h[0] === 'megamind'" class="code">
-            megamind {{ h[1] }}
+        <div *ngIf="h[0] === 'megamind'" class="command">
+            <span>megamind {{ h[1] }} {{ h.slice(2).join(' ') }}</span>
         </div>
         <div class="code" *ngIf="h[0] !== 'megamind'">
             <pre [innerHtml]="h.slice(1).join(' ')"></pre>
