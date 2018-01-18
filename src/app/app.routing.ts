@@ -11,8 +11,12 @@ const routes: Routes = [
         loadChildren: './landing/terms/terms.module#TermsModule'
     },
     {
+        path: '',
+        loadChildren: './components/rpc/rpc.module#RpcModule'
+    },
+    {
         path: '**',
-        loadChildren: './home/home.module#HomeModule'
+        loadChildren: './components/rpc/rpc.module#RpcModule'
     }
 ];
 

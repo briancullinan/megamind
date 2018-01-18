@@ -9,11 +9,11 @@ import { SearchService } from './search-service';
     styleUrls: [ './search.component.scss' ]
 })
 export class SearchComponent implements OnInit, OnDestroy {
+    @Input() parameters: { [index: string]: any } = {};
     @Input() search = '';
     @Output() submit = new EventEmitter<Array<any>>();
     functionName = '';
     functionParameters: Array<string> = [];
-    @Input() parameters: { [index: string]: any } = {};
     searchControl = new FormControl();
     error: boolean;
     public loading: boolean;

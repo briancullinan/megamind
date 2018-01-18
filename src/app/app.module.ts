@@ -11,7 +11,6 @@ import { AppComponent } from './app.component';
 // routing
 import { routing } from './app.routing';
 import { SharedModule, sharedModules } from './core/core.module';
-import { HomeModule } from './home/home.module';
 // sub-modules for lazy loading
 import { LayoutModule } from './layout/layout.module';
 
@@ -36,8 +35,7 @@ export const FirebaseConfig = {
         AngularFireAuthModule,
 
         routing, // the rest of the modules are lazy-loaded
-        LayoutModule,
-        HomeModule
+        LayoutModule
     ],
     providers: [
         {provide: APP_BASE_HREF, useValue: '/'}

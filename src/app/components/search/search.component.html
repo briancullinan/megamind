@@ -32,6 +32,6 @@
     <mat-form-field *ngFor="let p of functionParameters">
         <input matInput [placeholder]="p" [name]="p" [(ngModel)]="parameters[p]">
     </mat-form-field>
-    <button mat-raised-button color="primary" type="submit" [disabled]="loading || functionName === ''">Send
+    <button mat-raised-button color="primary" type="submit" [disabled]="loading || functionName === ''">Run
     </button>
 </form>
