@@ -13,7 +13,7 @@ import { RpcService } from './rpc-service';
 export class RpcComponent implements OnInit, OnDestroy {
     private routeSub: Subscription;
     private searcherSub: Subscription;
-    private component: string = '';
+    public component: string = '';
 
     constructor(public searchRouter: RpcSearchRouter,
                 public rpc: RpcService,

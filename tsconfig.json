@@ -33,7 +33,7 @@
     ".idea",
     ".git",
     "dist",
-    "config/translate-json.js"
+      "bin/translate-json.js"
   ],
   "awesomeTypescriptLoaderOptions": {
     "useTranspileModule": true,

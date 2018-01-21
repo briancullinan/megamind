@@ -3,7 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { RpcComponent } from './rpc.component';
 
 export const rpcRoutes: Routes = [
-    {path: '', pathMatch: 'full', redirectTo: '/tell joke'},
+    {path: '', pathMatch: 'full', redirectTo: '/tell joke/history'},
     // TODO: lookup display function
     {path: 'latest s3 bucket', pathMatch: 'full', redirectTo: '/latest s3 bucket/gallery'},
     {path: 'tip git tree', pathMatch: 'full', redirectTo: '/tip git tree/slider'},
