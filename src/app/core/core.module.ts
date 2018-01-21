@@ -17,6 +17,7 @@ import {
     MatSelectModule,
     MatSidenavModule,
     MatSliderModule,
+    MatTabsModule,
     MatToolbarModule,
     MatTooltipModule
 } from '@angular/material';
@@ -25,6 +26,10 @@ import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { JwtHelper } from 'angular2-jwt';
 import { RegisterFormComponent } from '../auth/register-form/register-form.component';
+import { HistoryService } from '../components/history/history-service';
+import { RpcService } from '../components/rpc/rpc-service';
+import { RpcSearchRouter } from '../components/search/search-router';
+import { SearchService } from '../components/search/search-service';
 import { DialogGuard } from './dialog-guard';
 import { LogService } from './log/log.service';
 
@@ -45,7 +50,8 @@ export const materialModules: Array<any> = [
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatAutocompleteModule,
-    MatSliderModule
+    MatSliderModule,
+    MatTabsModule
 ];
 
 export const sharedModules: Array<any> = [
@@ -88,7 +94,11 @@ export class SharedModule {
                 DialogGuard,
                 JwtHelper,
                 LogService,
-                HttpClient
+                HttpClient,
+                SearchService,
+                RpcService,
+                HistoryService,
+                RpcSearchRouter
             ]
         };
     }

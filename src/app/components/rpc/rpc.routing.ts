@@ -31,7 +31,12 @@ export const rpcRoutes: Routes = [
                 loadChildren: '../map/map.module#MapModule'
             },
             {
-                path: '**'
+                path: 'history',
+                loadChildren: '../history/history.module#HistoryModule'
+            },
+            {
+                path: '**',
+                redirectTo: 'history'
             }
         ]
     }

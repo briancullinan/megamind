@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { DomSanitizer } from '@angular/platform-browser';
 import { Subscription } from 'rxjs/Subscription';
 import { HistoryService } from '../history/history-service';
@@ -8,7 +8,7 @@ import { HistoryService } from '../history/history-service';
     templateUrl: './slider.component.html',
     styleUrls: [ './slider.component.scss' ]
 })
-export class SliderComponent implements OnInit {
+export class SliderComponent implements OnInit, OnDestroy {
     @Input() images: Array<string> = [];
     private historySub: Subscription;
 
@@ -26,5 +26,11 @@ export class SliderComponent implements OnInit {
                 this.ref.detectChanges();
             }
         });
+    }
+
+    ngOnDestroy() {
+        if (typeof this.historySub !== 'undefined') {
+            this.historySub.unsubscribe();
+        }
     }
 }

@@ -36,10 +36,10 @@ export class RpcService {
             })
             .catch(e => {
                 const resultError = Object.getOwnPropertyNames(e).reduce((alt: { [index: string]: any }, key) => {
-                    alt[ key ] = e[ key ];
+                    alt[ key ] = JSON.stringify(e[ key ], void 0, 4);
                     return alt;
                 }, {});
-                this.history.event([ e, JSON.stringify(resultError, void 0, 4) ]);
+                this.history.event([ e, resultError ]);
                 throw e;
             });
     }

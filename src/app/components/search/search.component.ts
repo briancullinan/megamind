@@ -1,6 +1,7 @@
-import { ChangeDetectorRef, Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+import { RpcSearchRouter } from './search-router';
 import { SearchService } from './search-service';
 
 @Component({
@@ -11,7 +12,6 @@ import { SearchService } from './search-service';
 export class SearchComponent implements OnInit, OnDestroy {
     @Input() parameters: { [index: string]: any } = {};
     @Input() search = '';
-    @Output() submit = new EventEmitter<Array<any>>();
     functionName = '';
     functionParameters: Array<string> = [];
     searchControl = new FormControl();
@@ -20,12 +20,20 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     private searchSub: Subscription;
     private parameterSub: Subscription;
+    private routerSub: Subscription;
 
     constructor(public service: SearchService,
+                public searchRouter: RpcSearchRouter,
                 public ref: ChangeDetectorRef) {
     }
 
     ngOnInit(): void {
+        this.routerSub = this.searchRouter.events
+            .subscribe(() => {
+                this.search = this.searchRouter.functionName;
+                this.parameters = this.searchRouter.parameters;
+                this.ref.detectChanges();
+            });
         this.parameterSub = this.service.rpc.parameters
             .subscribe(p => this.updateParameters(p), e => {
                 console.log(e);
@@ -40,6 +48,9 @@ export class SearchComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
+        if (typeof this.routerSub !== 'undefined') {
+            this.routerSub.unsubscribe();
+        }
         if (typeof this.searchSub !== 'undefined') {
             this.searchSub.unsubscribe();
         }
@@ -60,7 +71,6 @@ export class SearchComponent implements OnInit, OnDestroy {
             acc[ p ] = this.parameters[ p ];
             return acc;
         }, {} as { [index: string]: any });
-        this.submit.emit([ this.functionName, params ]);
         this.service.rpc.call(this.functionName, params)
             .subscribe(() => {
             }, (e: any) => {
@@ -71,12 +81,12 @@ export class SearchComponent implements OnInit, OnDestroy {
 
     public getParameters() {
         this.loading = true;
-        this.ref.detectChanges();
         this.service.search(this.search)
             .first()
             .subscribe((search) => {
                 this.service.rpc.getParameters([ search[ 0 ] ]);
             });
+        this.ref.detectChanges();
     }
 
     public updateParameters(r: Array<string>): void {

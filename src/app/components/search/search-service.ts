@@ -17,7 +17,7 @@ export class SearchService {
     permissionsAccessible: Observable<Array<string>>;
     permissionsLocked: Observable<Array<string>>;
     permissionsFunctions: Observable<Array<string>>;
-
+    initial: string;
     private fuse: Fuse;
     private searchObservable = new ReplaySubject<Array<string>>(1);
 
@@ -27,8 +27,6 @@ export class SearchService {
         });
         this.setupFilters();
     }
-
-    initial: string;
 
     // TODO: use notebook exported Core functions instead of this truncated service for the auto-complete
     public search(query: string): Observable<Array<string>> {

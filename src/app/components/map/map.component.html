@@ -1,3 +1,8 @@
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB6-7CChLh6uU8YqPqpbrXemF4w2blXGf4">
+</script>
 <agm-map [latitude]="lat" [longitude]="lng">
     <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+    <agm-directions [originPlaceId]="originPlaceId" [waypoints]="waypoints"
+                    [destinationPlaceId]="destinationPlaceId"></agm-directions>
 </agm-map>

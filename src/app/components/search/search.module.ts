@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { COMMON_MODULES } from '../../core/core.module';
-import { SearchService } from './search-service';
 import { SearchComponent } from './search.component';
 
 @NgModule({
@@ -9,7 +8,7 @@ import { SearchComponent } from './search.component';
     ],
     declarations: [ SearchComponent ],
     exports: [ SearchComponent ],
-    providers: [ SearchService ]
+    providers: []
 })
 export class SearchModule {
 }

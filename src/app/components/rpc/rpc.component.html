@@ -1,6 +1,13 @@
-<bc-search (submit)="updateFromCommand($event)" [search]="functionName"
-           [parameters]="parameters"></bc-search>
+<nav mat-tab-nav-bar>
+    <a mat-tab-link [active]="component === 'map'" routerLink="map">Map</a>
+    <a mat-tab-link [active]="component === 'gallery'" routerLink="gallery">Gallery</a>
+    <a mat-tab-link [active]="component === 'slider'" routerLink="slider">Slider</a>
+    <a mat-tab-link [active]="component === 'code'" routerLink="code">Code</a>
+    <a mat-tab-link [active]="component === 'history'" routerLink="history">History</a>
+</nav>
+
+<bc-search></bc-search>
 
 <router-outlet></router-outlet>
 
-<bc-history></bc-history>
+<bc-history *ngIf="(route.url | async)?.includes('/history')"></bc-history>

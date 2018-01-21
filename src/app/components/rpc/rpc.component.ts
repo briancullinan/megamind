@@ -1,9 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import 'rxjs/add/operator/first';
-import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
-import { SearchService } from '../search/search-service';
+import { RpcSearchRouter } from '../search/search-router';
 import { RpcService } from './rpc-service';
 
 @Component({
@@ -12,84 +11,37 @@ import { RpcService } from './rpc-service';
     styleUrls: [ './rpc.component.scss' ]
 })
 export class RpcComponent implements OnInit, OnDestroy {
-    public functionName = '';
-    public parameters: { [index: string]: any } = {};
     private routeSub: Subscription;
-    private initial = true;
-    private previous: { [index: string]: any } = {};
+    private searcherSub: Subscription;
+    private component: string = '';
 
-    constructor(public route: ActivatedRoute,
-                public router: Router,
+    constructor(public searchRouter: RpcSearchRouter,
                 public rpc: RpcService,
-                public search: SearchService) {
-    }
-
-    updateParameters(s: Array<any>, params: { [index: string]: any } = {}) {
-        // only update if its changed
-        if (typeof s !== 'undefined'
-            && typeof s[ 0 ] !== 'undefined'
-            && (s[ 0 ] !== this.functionName
-                || JSON.stringify(this.previous) !== JSON.stringify(params))) {
-            this.functionName = s[ 0 ];
-            this.previous = params;
-            this.parameters = Object.keys(params).reduce((acc: { [index: string]: any }, k) => {
-                if (k !== 'function' && typeof params[ k ] !== 'undefined') {
-                    acc[ k ] = params[ k ];
-                }
-                return acc;
-            }, {});
-            this.router.navigate(
-                [
-                    '/' + this.functionName,
-                    this.parameters
-                ],
-                {replaceUrl: true});
-        }
+                public ref: ChangeDetectorRef,
+                public router: Router,
+                public route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.parameters = {};
-        this.route.params.first()
-            .flatMap(params => {
-                this.functionName = params[ 'function' ];
-                this.parameters = params;
-
-                if (this.functionName) {
-                    return this.search.search(this.functionName)
-                        .map((search: Array<string>) => ({params, search}));
-                }
-                return Observable.of({params, search: []});
-            })
-            .first()
+        this.component = this.router.url.split(/\//ig)[ 2 ];
+        this.routeSub = this.router.events
+            .filter(r => r instanceof NavigationEnd)
+            .subscribe(e => {
+                this.component = this.router.url.split(/\//ig)[ 2 ];
+                this.ref.detectChanges();
+            });
+        this.searcherSub = this.searchRouter.routeSubscription(this.route)
             .subscribe(({search}) => {
                 this.rpc.getParameters([ search[ 0 ] ]);
             });
-        this.routeSub = this.rpc.parameters
-            .subscribe(s => {
-                this.updateParameters(s, this.parameters);
-                // call the function when the page first loads
-                if (typeof s !== 'undefined' && typeof s[ 0 ] !== 'undefined'
-                    && this.initial) {
-                    this.initial = false;
-                    this.rpc.call(this.functionName, this.parameters)
-                        .subscribe(() => {
-                        }, (e: any) => {
-                            console.log(e);
-                        });
-                }
-            });
-    }
-
-    updateFromCommand(r: Array<any>) {
-        if (!r.length) {
-            return;
-        }
-        this.updateParameters(r, r[ 1 ]);
     }
 
     ngOnDestroy() {
         if (typeof this.routeSub !== 'undefined') {
             this.routeSub.unsubscribe();
+        }
+        if (typeof this.searcherSub !== 'undefined') {
+            this.searcherSub.unsubscribe();
         }
     }
 }

@@ -1,3 +1,11 @@
+:host {
+    background: radial-gradient(
+            rgba(255, 255, 255, 0.75),
+            rgba(255, 255, 0, 0.75) 20%,
+            rgba(255, 125, 0, 0.75) 150%
+    ) no-repeat fixed center;
+    background-size: cover;
+}
 
 form {
     display: flex;
