@@ -7,10 +7,9 @@
         {
             "name": "megamind",
             "root": "src",
-            "outDir": "docs",
+            "outDir": "dist",
             "assets": [
                 "assets",
-                "web.config",
                 "assets/favicon.ico"
             ],
             "index": "index.html",

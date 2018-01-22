@@ -5,6 +5,8 @@ import { RpcComponent } from './rpc.component';
 export const rpcRoutes: Routes = [
     {path: '', pathMatch: 'full', redirectTo: '/tell joke/history'},
     // TODO: lookup display function
+    {path: 'megamind', pathMatch: 'full', redirectTo: '/megamind/editor'},
+    {path: 'github commit html acl', pathMatch: 'full', redirectTo: '/github commit html acl/editor'},
     {path: 'latest s3 bucket', pathMatch: 'full', redirectTo: '/latest s3 bucket/gallery'},
     {path: 'tip git tree', pathMatch: 'full', redirectTo: '/tip git tree/slider'},
     {path: 'calendar search heatmap', pathMatch: 'full', redirectTo: '/calendar search heatmap/slider'},
@@ -33,6 +35,10 @@ export const rpcRoutes: Routes = [
             {
                 path: 'history',
                 loadChildren: '../history/history.module#HistoryModule'
+            },
+            {
+                path: 'editor',
+                loadChildren: '../editor/editor.module#EditorModule'
             },
             {
                 path: '**',

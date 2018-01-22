@@ -5,5 +5,6 @@ import '@angular/http';
 import '@angular/platform-browser';
 import '@angular/platform-browser-dynamic';
 import '@angular/router';
+import '@ckeditor/ckeditor5-build-inline';
 
 import 'ngx-gallery';
