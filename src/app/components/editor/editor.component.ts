@@ -11,7 +11,7 @@ import { AclService } from './acl-service';
 })
 export class EditorComponent implements OnInit, OnDestroy {
     private historySub: Subscription;
-    private html: SafeHtml;
+    public html: SafeHtml;
 
     constructor(public ref: ChangeDetectorRef,
                 public history: HistoryService,
