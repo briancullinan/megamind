@@ -18,7 +18,9 @@ export class AclService {
             for (let el of els) {
                 el.setAttribute('contenteditable', 'true');
                 InlineEditor
-                    .create(el /** document.querySelector(path) */, {})
+                    .create(el /** document.querySelector(path) */, {
+
+                    })
                     .then((editor: any) => {
                         (window as any).editor = editor;
                     })

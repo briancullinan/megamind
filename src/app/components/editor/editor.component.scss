@@ -7,3 +7,8 @@
     bottom: auto;
     left: 0;
 }
+
+:host /deep/ p {
+    padding: 0;
+    margin: 0;
+}

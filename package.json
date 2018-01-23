@@ -5,12 +5,13 @@
     "main": "index.ts",
     "scripts": {
         "start": "ng serve --host 0.0.0.0 --port 9090 --app 0",
-        "build": "ng build --prod --environment=prod --aot --app 0",
-        "build:prod": "ng build --prod --aot --app 0",
-        "build:github": "npm run build -- --base-href https://megamindbrian.github.io/megamind/",
+        "build": "npm run build:prod",
+        "build:prod": "ng build --prod --environment=prod --aot",
+        "build:github": "ng build --base-href https://megamindbrian.github.io/megamind/ --prod --aot",
         "deploy": "npm run deploy:github",
         "predeploy:github": "npm run build:github",
         "deploy:github": "ngh",
+        "predeploy:firebase": "npm run build:prod",
         "deploy:firebase": "firebase deploy",
         "lint": "tslint **/*.ts",
         "test": "karma start --browsers Chrome"
@@ -116,5 +117,5 @@
         "tslint": "^5.9.1",
         "uglify-es": "github:mishoo/UglifyJS2#harmony"
     },
-    "keywords": []
+    "keywords": [ ]
 }
