@@ -7,7 +7,7 @@
         "start": "ng serve --host 0.0.0.0 --port 9090 --app 0",
         "build": "npm run build:prod",
         "build:prod": "ng build --prod --environment=prod --aot",
-        "build:github": "ng build --base-href https://megamindbrian.github.io/megamind/ --prod --aot",
+        "build:github": "ng build --deploy-url=megamind/ --base-href https://megamindbrian.github.io/megamind/ --environment=prod --aot",
         "deploy": "npm run deploy:github",
         "predeploy:github": "npm run build:github",
         "deploy:github": "ngh",
