@@ -58,7 +58,7 @@
         "fuse.js": "^3.2.0",
         "github": "^13.1.0",
         "golden-layout": "^1.5.9",
-        "googleapis": "^25.0.0",
+        "googleapis": "^39.1.0",
         "hammerjs": "^2.0.8",
         "ng-gallery": "^1.0.1",
         "ngx-gallery": "^3.3.0",
